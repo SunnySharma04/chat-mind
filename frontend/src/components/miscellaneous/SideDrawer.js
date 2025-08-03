@@ -78,10 +78,12 @@ function SideDrawer() {
       setLoading(true);
 
       const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${user?.token}`,
+  },
+};
+
 
       const { data } = await axios.get(
   `${process.env.REACT_APP_API_BASE_URL}/api/user?search=${search}`,
