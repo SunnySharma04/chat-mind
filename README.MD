@@ -6,16 +6,6 @@ ChatMind is a full stack chat application that allows users to communicate with 
 
 ---
 
-### ⚙️ Time Taken in Completion of Project:
-
-<p align="center">
-<a href="https://wakatime.com/badge/user/f7838f29-ea5b-42c9-a473-628c7d8bc934/project/27f6a565-9c39-4922-8a4e-343c26e814d4">
-<img src="https://wakatime.com/badge/user/f7838f29-ea5b-42c9-a473-628c7d8bc934/project/27f6a565-9c39-4922-8a4e-343c26e814d4.svg" alt="wakatime">
-</a>
-</p>
-
----
-
 ## 🧱 Tech Stack
 
 [![MERN Stack](https://img.shields.io/badge/Stack-MERN-61DAFB?style=flat-square)](https://en.wikipedia.org/wiki/MERN_(software_bundle))
