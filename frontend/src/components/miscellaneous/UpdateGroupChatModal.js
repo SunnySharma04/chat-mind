@@ -45,7 +45,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       setLoading(true);
       const config = {
         headers: {
-         "Content-type" : "appilication/json",
+         "Content-Type" : "appilication/json",
         },
       };
       const { data } = await axios.get(
