@@ -1,30 +1,26 @@
+const sendJwtToekn = (userData, statusCode, res) => {
+  const token = userData.getJwtToken(); // Get token from model method
 
-const sendJwtToekn  = (userData  , statusCode , res) =>{
-  
-  const Token = userData.getJwtToken(); // from method userModel
-  
   console.log("User Token Payload:", JSON.stringify(userData, null, 2));
 
-
-    //  console.log(process.env.COOKIE_EXPIRE, userData);
-  // options for cookie
+  // Options for setting the cookie
   const options = {
     expires: new Date(
       Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-    ), // 2day
-    httpOnly: true, // The 'httpOnly' flag prevents client-side access to the cookie
+    ), // Example: COOKIE_EXPIRE = 2
+    httpOnly: true, // Cookie not accessible from JS (for security)
   };
- 
-    res.status(statusCode).cookie("token", Token, options).json({
-      _id: userData._id,
-      name: userData.name,
-      email: userData.email,
-      isAdmin: userData.isAdmin,
-      pic: userData.pic,
-      createdAt: userData.createdAt,
-    });
 
-    
-}
+  // Send response with token in cookie and body
+  res.status(statusCode).cookie("token", token, options).json({
+    _id: userData._id,
+    name: userData.name,
+    email: userData.email,
+    isAdmin: userData.isAdmin,
+    pic: userData.pic,
+    createdAt: userData.createdAt,
+    token, // ✅ This makes the token available in frontend
+  });
+};
 
 module.exports = sendJwtToekn;
