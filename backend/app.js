@@ -39,6 +39,14 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
+const cors = require("cors");
+
+app.use(cors({
+  origin: "https://chat-mind-phi.vercel.app/", // or use "*" for dev only
+  credentials: true
+}));
+
+
 // -----deployement code-----
 
 const __dirname1 = path.resolve();
