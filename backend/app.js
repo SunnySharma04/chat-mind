@@ -39,12 +39,12 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-const cors = require("cors");
-
+// Allow requests from Vercel frontend
 app.use(cors({
-  origin: "https://chat-mind-phi.vercel.app/", // or use "*" for dev only
+  origin: "https://chat-mind-phi.vercel.app", // ✅ Make sure there's no trailing slash
   credentials: true
 }));
+
 
 
 // -----deployement code-----
