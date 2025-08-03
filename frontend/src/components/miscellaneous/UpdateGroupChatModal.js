@@ -48,7 +48,11 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
          "Content-type" : "appilication/json",
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(
+  `${process.env.REACT_APP_API_BASE_URL}/api/user?search=${search}`,
+  config
+);
+
       console.log(data);
       setLoading(false);
       setSearchResult(data);
@@ -76,13 +80,14 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.put(
-        `/api/chat/rename`,
-        {
-          chatId: selectedChat._id,
-          chatName: groupChatName,
-        },
-        config
-      );
+  `${process.env.REACT_APP_API_BASE_URL}/api/chat/rename`,
+  {
+    chatId: selectedChat._id,
+    chatName: groupChatName,
+  },
+  config
+);
+
 
       console.log(data._id);
       // setSelectedChat("");
@@ -131,13 +136,19 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       setLoading(true);
      
       const { data } = await axios.put(
-        `/api/chat/groupadd`,
-        {
-          chatId: selectedChat._id,
-          userId: user1._id,
-        },
-       
-      );
+  `${process.env.REACT_APP_API_BASE_URL}/api/chat/groupadd`,
+  {
+    chatId: selectedChat._id,
+    userId: user1._id,
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      "Content-Type": "application/json",
+    },
+  }
+);
+
 
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
@@ -174,13 +185,19 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       setLoading(true);
       const config = { headers : {"Content-type" : "application/json"} };
       const { data } = await axios.put(
-        `/api/chat/groupremove`,
-        {
-          chatId: selectedChat._id,
-          userId: user1._id,
-        }, 
-        config
-      );
+  `${process.env.REACT_APP_API_BASE_URL}/api/chat/groupremove`,
+  {
+    chatId: selectedChat._id,
+    userId: user1._id,
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      "Content-Type": "application/json",
+    },
+  }
+);
+
 
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setFetchAgain(!fetchAgain);
