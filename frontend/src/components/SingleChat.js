@@ -71,9 +71,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setLoading(true);
 
       const { data } = await axios.get(
-        `/api/message/${selectedChat._id}`,
-        config
-      );
+  `${process.env.REACT_APP_API_BASE_URL}/api/message/${selectedChat._id}`,
+  config
+);
+
       setMessages(data);
       setLoading(false);
 
@@ -105,13 +106,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         setNewMessage("");
 
         const { data } = await axios.post(
-          "/api/message",
-          {
-            content: newMessage,
-            chatId: selectedChat,
-          },
-          config
-        );
+  `${process.env.REACT_APP_API_BASE_URL}/api/message`,
+  {
+    content: newMessage,
+    chatId: selectedChat,
+  },
+  config
+);
+
         socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {
