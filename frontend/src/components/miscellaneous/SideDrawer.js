@@ -79,7 +79,7 @@ function SideDrawer() {
 
       const config = {
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
       };
 
@@ -111,7 +111,7 @@ function SideDrawer() {
       setLoadingChat(true);
       const config = {
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
       };
       const { data } = await axios.post(
