@@ -25,7 +25,7 @@ import { ChatState } from "../Context/ChatProvider";
 
 const ENDPOINT = window.location.hostname === "localhost"
   ? "http://localhost:5000"
-  : "https://chat-mind-production.up.railway.app/";
+  : "https://chat-mind-backend.onrender.com";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -64,7 +64,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     try {
       const config = {
         headers: {
-         "Content-type": "application/json",
+         "Content-Type": "application/json",
         },
       };
 
@@ -99,7 +99,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       try {
         const config = {
           headers: {
-            "Content-type": "application/json",
+            "Content-Type": "application/json",
           },
         };
 
