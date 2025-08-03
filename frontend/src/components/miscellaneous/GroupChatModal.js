@@ -58,7 +58,11 @@ const GroupChatModal = ({ children }) => {
       "Content-type" : "appilication/json"
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(
+  `${process.env.REACT_APP_API_BASE_URL}/api/user?search=${search}`,
+  config
+);
+
      
 
       setLoading(false);
@@ -107,13 +111,14 @@ const GroupChatModal = ({ children }) => {
     try {
       const config = { headers: { "Content-type": "application/json" } };
       const { data } = await axios.post(
-        `/api/chat/group`,
-        {
-          name: groupChatName,
-          users: JSON.stringify(selectedUsers.map((u) => u._id)),
-        },
-        config
-      );
+  `${process.env.REACT_APP_API_BASE_URL}/api/chat/group`,
+  {
+    name: groupChatName,
+    users: JSON.stringify(selectedUsers.map((u) => u._id)),
+  },
+  config
+);
+
       setChats([data, ...chats]);
       onClose();
       toast({
