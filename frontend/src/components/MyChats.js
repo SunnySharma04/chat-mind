@@ -20,10 +20,12 @@ const MyChats = ({ fetchAgain }) => {
     // console.log(user._id);
     try {
       const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${loggedUser?.token}`,
+  },
+};
+
 
       const { data } = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/chat`, config);
 
