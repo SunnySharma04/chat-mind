@@ -18,7 +18,14 @@ import {
 } from "@chakra-ui/modal";
 import "./SideDrawer.css";
 import { Tooltip } from "@chakra-ui/tooltip";
-import { BellIcon, ChevronDownIcon ,  DeleteIcon, EditIcon, ExternalLinkIcon, SettingsIcon  } from "@chakra-ui/icons";
+import {
+  BellIcon,
+  ChevronDownIcon,
+  DeleteIcon,
+  EditIcon,
+  ExternalLinkIcon,
+  SettingsIcon,
+} from "@chakra-ui/icons";
 import { Avatar } from "@chakra-ui/avatar";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
@@ -29,8 +36,7 @@ import { Spinner } from "@chakra-ui/spinner";
 import ProfileModal from "./ProfileModal";
 import NotificationBadge from "react-notification-badge";
 import { Effect } from "react-notification-badge";
-import { getSender } from "../../config/ChatLogics";
-import { createdAt } from "../../config/ChatLogics";
+import { getSender, createdAt } from "../../config/ChatLogics";
 import UserListItem from "../userAvatar/UserListItem";
 import { ChatState } from "../../Context/ChatProvider";
 
@@ -50,8 +56,6 @@ function SideDrawer() {
     setIsAuth,
   } = ChatState();
 
-  
-
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
@@ -65,7 +69,7 @@ function SideDrawer() {
   const handleSearch = async () => {
     if (!search) {
       toast({
-        title: "Please Enter something in search",
+        title: "Please enter something in search",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -78,50 +82,48 @@ function SideDrawer() {
       setLoading(true);
 
       const config = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${user?.token}`,
-  },
-};
-
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+      };
 
       const { data } = await axios.get(
-  `${process.env.REACT_APP_API_BASE_URL}/api/user?search=${search}`,
-  config
-);
+        `${process.env.REACT_APP_API_BASE_URL}/api/user?search=${search}`,
+        config
+      );
 
-;
-      setLoading(false);
       setSearchResult(data);
+      setLoading(false);
     } catch (error) {
       toast({
-        title: "Error Occured!",
-        description: "Failed to Load the Search Results",
+        title: "Error Occurred!",
+        description: "Failed to load the search results",
         status: "error",
         duration: 5000,
         isClosable: true,
         position: "bottom-left",
       });
+      setLoading(false);
     }
   };
 
-   // handle the access chat function 
   const accessChat = async (userId) => {
- 
-
     try {
       setLoadingChat(true);
+
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
         },
       };
-      const { data } = await axios.post(
-  `${process.env.REACT_APP_API_BASE_URL}/api/chat`,
-  { userId },
-  config
-);
 
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/chat`,
+        { userId },
+        config
+      );
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
@@ -135,8 +137,8 @@ function SideDrawer() {
         duration: 5000,
         isClosable: true,
         position: "bottom-left",
-       
       });
+      setLoadingChat(false);
     }
   };
 
@@ -148,48 +150,22 @@ function SideDrawer() {
         alignItems="center"
         bg="#28293D"
         w="100%"
-        p="5px 10px 5px 10px"
+        p="5px 10px"
         borderWidth="5px"
         borderColor="#555770"
         color="#EBEBF0"
       >
-        <Tooltip
-          label="Search Users to chat"
-          hasArrow
-          placement="bottom-end"
-          bgGradient="linear(to-r, #3E7BFA, #6600CC)"
-          color="#FFFFFF"
-          _hover={{
-            bg: "#555770",
-            color: "#FFFFFF",
-          }}
-        >
-          <Button
-            variant="ghost"
-            onClick={onOpen}
-            _hover={{
-              bg: "#555770",
-            }}
-            _active={{
-              bg: "transparent",
-              color: "#FFFFFF",
-            }}
-          >
+        <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
+          <Button variant="ghost" onClick={onOpen} _hover={{ bg: "#555770" }}>
             <i className="fas fa-search"></i>
-            <Text
-              d={{ base: "none", md: "flex" }}
-              px={4}
-              _hover={{
-                bg: "#555770",
-              }}
-            >
+            <Text d={{ base: "none", md: "flex" }} px={4}>
               Search User
             </Text>
           </Button>
         </Tooltip>
 
         <Text
-        className ="logo_text"
+          className="logo_text"
           fontSize="2.5rem"
           fontWeight="bold"
           textTransform="uppercase"
@@ -197,7 +173,7 @@ function SideDrawer() {
           bgGradient="linear(to-r, #FF3B3B, #6600CC)"
           bgClip="text"
           cursor="pointer"
-          textShadow="2px 2px 8px rgba(0, 0, 0, 0.6)" // Update the shadow effect
+          textShadow="2px 2px 8px rgba(0, 0, 0, 0.6)"
         >
           ChatMind
         </Text>
@@ -205,10 +181,7 @@ function SideDrawer() {
         <div>
           <Menu>
             <MenuButton p={1}>
-              <NotificationBadge
-                count={notification.length}
-                effect={Effect.SCALE}
-              />
+              <NotificationBadge count={notification.length} effect={Effect.SCALE} />
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
             <MenuList pl={2} bg="#28293D" color="white">
@@ -228,21 +201,17 @@ function SideDrawer() {
               ))}
             </MenuList>
           </Menu>
+
           <Menu>
             <MenuButton as={Button} bg="transparent" _hover={{ bg: "#555770" }}>
-              <Avatar
-                size="sm"
-                cursor="pointer"
-                name={user.name}
-                src={user.pic}
-              />
-              <ChevronDownIcon _hover={{ color: "#6600CC" }} />
+              <Avatar size="sm" cursor="pointer" name={user.name} src={user.pic} />
+              <ChevronDownIcon />
             </MenuButton>
-            <MenuList bg="#28293D" border="none" shadow="none" p={0}>
+            <MenuList bg="#28293D" border="none">
               <Box p={2} textAlign="center">
                 <Avatar size="md" name={user.name} src={user.pic} mb={2} />
                 <Box fontSize="sm">
-                  <strong>ID:</strong> {user._id.toString().substring(0 ,8)} <br />
+                  <strong>ID:</strong> {user._id.slice(0, 8)} <br />
                   <strong>Name:</strong> {user.name} <br />
                   <strong>Email:</strong> {user.email} <br />
                   <strong>Created At:</strong> {createdAt(user)} <br />
@@ -259,7 +228,6 @@ function SideDrawer() {
                 <DeleteIcon mr={2} boxSize={4} />
                 Delete Account
               </MenuItem>
-
               <MenuItem _hover={{ bg: "#555770" }}>
                 <SettingsIcon mr={2} boxSize={4} />
                 Settings
@@ -275,17 +243,13 @@ function SideDrawer() {
 
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
-        <DrawerContent bg="#28293D" color="#28293D">
+        <DrawerContent bg="#28293D" color="#F2F2F5">
           <DrawerHeader
-        
             borderBottomWidth="1px"
             fontWeight="bold"
             textTransform="uppercase"
-            display="inline-block"
             bgGradient="linear(to-r, #FF3B3B, #6600CC)"
             bgClip="text"
-            cursor="pointer"
-            textShadow="2px 2px 8px rgba(0, 0, 0, 0.6)"
             textAlign="center"
             fontSize="2rem"
           >
@@ -303,18 +267,10 @@ function SideDrawer() {
               />
               <Button
                 onClick={handleSearch}
-                color="#F2F2F5"
                 bg="#555770"
-                _hover={{
-                  bg: "#6600CC",
-                  color: "#F2F2F5",
-                  boxShadow: "2px 2px 8px rgba(0, 0, 0, 0.6)",
-                }}
-                _active={{
-                  bg: "#6600CC",
-                  color: "#F2F2F5",
-                  boxShadow: "none",
-                }}
+                color="#F2F2F5"
+                _hover={{ bg: "#6600CC" }}
+                _active={{ bg: "#6600CC" }}
                 p={3}
               >
                 Go
