@@ -183,7 +183,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
     try {
       setLoading(true);
-      const config = { headers : {"Content-type" : "application/json"} };
+      const config = { headers : {"Content-Type" : "application/json"} };
       const { data } = await axios.put(
   `${process.env.REACT_APP_API_BASE_URL}/api/chat/groupremove`,
   {
