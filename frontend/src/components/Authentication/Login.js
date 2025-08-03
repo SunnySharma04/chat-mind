@@ -69,10 +69,11 @@ const { isAuth ,setIsAuth } = ChatState();
       };
 
       const { data } = await axios.post(
-        "/api/user/login",
-        { email, password },
-        config
-      );
+  `${process.env.REACT_APP_API_BASE_URL}/api/user/login`,
+  { email, password },
+  config
+);
+
 
    
       toast({
