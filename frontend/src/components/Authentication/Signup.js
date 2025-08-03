@@ -65,7 +65,12 @@ const submitHandler = async () => {
       },
     };
 
-    const { data } = await axios.post("/api/user", formData, config);
+    const { data } = await axios.post(
+  `${process.env.REACT_APP_API_BASE_URL}/api/user`,
+  formData,
+  config
+);
+
     
    
     if (data) { 
