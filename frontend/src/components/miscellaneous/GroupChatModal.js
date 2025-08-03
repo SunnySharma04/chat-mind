@@ -55,7 +55,7 @@ const GroupChatModal = ({ children }) => {
       setLoading(true);
       const config = {
         headers: {
-      "Content-type" : "appilication/json"
+      "Content-Type" : "appilication/json"
         },
       };
       const { data } = await axios.get(
@@ -109,7 +109,7 @@ const GroupChatModal = ({ children }) => {
      
   
     try {
-      const config = { headers: { "Content-type": "application/json" } };
+      const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.post(
   `${process.env.REACT_APP_API_BASE_URL}/api/chat/group`,
   {
