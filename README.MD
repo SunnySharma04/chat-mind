@@ -28,8 +28,6 @@ ChatMind is a full stack chat application that allows users to communicate with 
 
 ---
 
-## 📸 Demo
-![Demo](./gif/demo.gif)
 
 ---
 
